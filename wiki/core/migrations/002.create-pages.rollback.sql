@@ -1,0 +1,4 @@
+DROP TABLE IF EXISTS revisions;
+DROP TABLE IF EXISTS pages;
+DROP TABLE IF EXISTS categories;
+DROP TABLE IF EXISTS interlinks;
