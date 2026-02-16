@@ -1,6 +1,10 @@
 import importlib
 import os
 import pkgutil
+from tempfile import template
+
+from jinja2 import ChoiceLoader, FileSystemLoader
+
 import wiki.modules
 from flask.blueprints import Blueprint
 
@@ -8,9 +12,10 @@ from flask.blueprints import Blueprint
 class Autoloader:
     def __init__(self, app):
         self.app = app
+        self.modules = self.scan()
 
     def boot(self):
-        for module in self.scan():
+        for module in self.modules:
             modules = dir(module)
             modules = list(filter(lambda x: not x.startswith("__"), modules))
             for attr in modules:
@@ -36,6 +41,28 @@ class Autoloader:
             modules.append(module)
 
         return modules
+
+    def register_templates(self):
+        loader = ChoiceLoader([self.app.jinja_loader])
+
+        # Load the core module templates folder
+        core_module = importlib.import_module("wiki.core")
+        core_template_dir = os.path.join(
+            os.path.dirname(core_module.__file__), "templates"
+        )
+        if os.path.isdir(core_template_dir):
+            loader.loaders.append(FileSystemLoader(core_template_dir))
+
+        # Search for and load module template folders
+        for module in self.modules:
+            module_template_dir = os.path.join(
+                os.path.dirname(module.__file__), "templates"
+            )
+            if os.path.isdir(module_template_dir):
+                loader.loaders.append(FileSystemLoader(module_template_dir))
+
+        # Register on the app
+        self.app.jinja_loader = loader
 
     def find_extensions(self):
         pass

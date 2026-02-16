@@ -13,5 +13,6 @@ def create_app():
     # Load modules and extensions
     autoloader = Autoloader(app)
     autoloader.boot()
+    autoloader.register_templates()
 
     return app

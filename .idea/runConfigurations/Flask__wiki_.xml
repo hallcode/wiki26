@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Flask" type="Python.FlaskServer" nameIsGenerated="true">
+  <configuration default="false" name="Flask (wiki)" type="Python.FlaskServer" nameIsGenerated="true">
     <option name="additionalOptions" value="--debug" />
     <module name="Wiki26" />
     <option name="target" value="wiki" />
@@ -9,7 +9,7 @@
     <option name="PARENT_ENVS" value="true" />
     <option name="SDK_HOME" value="" />
     <option name="SDK_NAME" value="Python 3.14 (Wiki26)" />
-    <option name="WORKING_DIRECTORY" value="" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     <option name="IS_MODULE_SDK" value="false" />
     <option name="ADD_CONTENT_ROOTS" value="true" />
     <option name="ADD_SOURCE_ROOTS" value="true" />
