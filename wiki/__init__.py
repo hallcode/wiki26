@@ -1,7 +1,9 @@
 from flask import Flask
+
+from database import close_db
 from wiki.core.autoloader import Autoloader
 
-from wiki.core.views.authentication import auth_bp
+from wiki.core.views.login import auth_bp
 
 
 def create_app():
@@ -14,5 +16,8 @@ def create_app():
     autoloader = Autoloader(app)
     autoloader.boot()
     autoloader.register_templates()
+
+    # Close Database
+    close_db(app)
 
     return app
