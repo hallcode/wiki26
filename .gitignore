@@ -399,3 +399,6 @@ cython_debug/
 
 # Files specific to a certain wiki
 data/*
+
+# Ruff
+.ruff_cache/
