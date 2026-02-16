@@ -26,7 +26,12 @@ class Autoloader:
                 except ImportError:
                     continue
 
-                self.app.register_blueprint(bp)
+                template_path = os.path.join(bp.root_path, "templates")
+                if os.path.exists(template_path):
+                    self.app.register_blueprint(bp, template_folder=template_path)
+
+                else:
+                    self.app.register_blueprint(bp)
 
     def scan(self):
         """
@@ -44,8 +49,8 @@ class Autoloader:
             if file.name.startswith("__"):
                 continue
 
+            module_name = "wiki.modules." + file.name
             try:
-                module_name = "wiki.modules." + file.name
                 m = importlib.import_module(module_name)
                 modules.append(m)
 

@@ -9,6 +9,7 @@
     <option name="TEMPLATE_FOLDERS">
       <list>
         <option value="$MODULE_DIR$/wiki/core/templates" />
+        <option value="$MODULE_DIR$/wiki/modules/media/templates" />
       </list>
     </option>
   </component>
