@@ -14,6 +14,7 @@ class Autoloader:
         for module in modules:
             sub_modules = dir(module)
             sub_modules = filter(lambda x: not x.startswith("__"), sub_modules)
+
             for name in sub_modules:
                 bp = getattr(module, name)
                 if not isinstance(bp, Blueprint):
@@ -21,10 +22,11 @@ class Autoloader:
 
                 try:
                     importlib.import_module(module.__name__ + ".views")
+
                 except ImportError:
                     continue
-                self.app.register_blueprint(bp)
 
+                self.app.register_blueprint(bp)
 
     def scan(self):
         """
@@ -53,8 +55,4 @@ class Autoloader:
         return modules
 
     def find_extensions(self):
-        """
-        Find all the app extensions in each module
-        :return: { name: str, type: str, ext: Any }
-        """
         pass
