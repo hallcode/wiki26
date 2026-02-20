@@ -60,3 +60,7 @@ class Revisions(db.Model):
     )
     base_content: Mapped[bytes] = mapped_column()
     delta: Mapped[bytes] = mapped_column()
+    draft: Mapped[bool] = mapped_column(default=True)
+    imported: Mapped[bool] = mapped_column(default=False)
+    size: Mapped[int] = mapped_column(default=0)
+    change: Mapped[int] = mapped_column(default=0)
