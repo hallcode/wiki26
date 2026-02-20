@@ -1,0 +1,6 @@
+SECRET_KEY = "7713e233e03fc0a075d949a16ac84928db9d2271de6fccc70e42b2e441c6908c"
+
+SQLALCHEMY_DATABASE_URI = "sqlite:///dev.db"
+
+[wiki]
+SITE_TITLE = "The Wiki"
