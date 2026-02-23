@@ -402,3 +402,6 @@ data/*
 
 # Ruff
 .ruff_cache/
+
+# App
+config.toml

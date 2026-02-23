@@ -1,11 +1,11 @@
 import importlib
 import os
 import pkgutil
-from tempfile import template
 
 from jinja2 import ChoiceLoader, FileSystemLoader
 
 import wiki.modules
+import wiki.core.models
 from flask.blueprints import Blueprint
 
 
@@ -64,5 +64,19 @@ class Autoloader:
         # Register on the app
         self.app.jinja_loader = loader
 
-    def find_extensions(self):
-        pass
+    def load_models(self):
+        # Import core models
+        for _, module_name, is_package in pkgutil.iter_modules(wiki.core.models.__path__):
+            if is_package:
+                continue
+
+            importlib.import_module(f"wiki.core.models.{module_name}")
+
+        # Import module models
+        for module in self.modules:
+            for _, submodule, is_package in pkgutil.iter_modules(module.__path__):
+                if submodule != "models":
+                    continue
+
+                importlib.import_module(f"wiki.{module}.{submodule}")
+

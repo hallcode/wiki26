@@ -25,6 +25,9 @@ def create_app():
     db.init_app(app)
     alembic.init_app(app)
 
+    # For alembic mainly, but also to highlight errors early
+    autoloader.load_models()
+
     # Authentication
     login_manager.init_app(app)
 
