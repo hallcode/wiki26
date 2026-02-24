@@ -9,8 +9,18 @@ from wiki.core.database import db
 
 category_pivot_table = db.Table(
     "category_page",
-    Column("category_id", Integer, ForeignKey("categories.id"), primary_key=True),
-    Column("page_id", Integer, ForeignKey("pages.id"), primary_key=True),
+    Column(
+        "category_id",
+        Integer,
+        ForeignKey("categories.id", ondelete="RESTRICT", onupdate="CASCADE"),
+        primary_key=True,
+    ),
+    Column(
+        "page_id",
+        Integer,
+        ForeignKey("pages.id", ondelete="CASCADE", onupdate="CASCADE"),
+        primary_key=True,
+    ),
 )
 
 interlinks_table = db.Table(
@@ -64,3 +74,28 @@ class Revisions(db.Model):
     imported: Mapped[bool] = mapped_column(default=False)
     size: Mapped[int] = mapped_column(default=0)
     change: Mapped[int] = mapped_column(default=0)
+
+
+class Metadata(db.Model):
+    __tablename__ = "metadata"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    parent_type: Mapped[str] = mapped_column()
+    parent_id: Mapped[int] = mapped_column()
+    group: Mapped[str] = mapped_column(index=True, nullable=True)
+    key: Mapped[str] = mapped_column(index=True, nullable=False)
+    value: Mapped[str] = mapped_column(nullable=False)
+
+
+class Change(db.Model):
+    __tablename__ = "changes"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    action: Mapped[str] = mapped_column()
+    completed_at: Mapped[datetime] = mapped_column(nullable=False, default=datetime.now)
+    user_id: Mapped[UUID] = mapped_column(
+        ForeignKey("users.id", onupdate="CASCADE", ondelete="RESTRICT"), nullable=False
+    )
+    object_type: Mapped[str] = mapped_column()
+    object_id: Mapped[int] = mapped_column()
+    description: Mapped[str] = mapped_column()

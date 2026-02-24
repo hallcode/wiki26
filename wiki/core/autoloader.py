@@ -66,7 +66,9 @@ class Autoloader:
 
     def load_models(self):
         # Import core models
-        for _, module_name, is_package in pkgutil.iter_modules(wiki.core.models.__path__):
+        for _, module_name, is_package in pkgutil.iter_modules(
+            wiki.core.models.__path__
+        ):
             if is_package:
                 continue
 
@@ -79,4 +81,3 @@ class Autoloader:
                     continue
 
                 importlib.import_module(f"wiki.{module}.{submodule}")
-
