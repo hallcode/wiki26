@@ -1,3 +1,4 @@
+import os
 import tomllib
 
 from flask import Flask
@@ -7,13 +8,16 @@ from wiki.core.database import db, alembic
 from wiki.core.autoloader import Autoloader
 
 from wiki.core.views.login import auth_bp
+from wiki.core.cli import cli
 
 
 def create_app():
     app = Flask(__name__)
-    app.config.from_file("../config.toml", load=tomllib.load, text=False)
+    config_path = os.path.join(app.instance_path, "config.toml")
+    app.config.from_file(config_path, load=tomllib.load, text=False)
 
     # Core
+    app.register_blueprint(cli)
     app.register_blueprint(auth_bp)
 
     # Autoloader

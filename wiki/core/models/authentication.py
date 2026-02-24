@@ -1,6 +1,7 @@
 from datetime import datetime
 from uuid import UUID, uuid4
 from typing import List, TYPE_CHECKING
+from passlib.hash import argon2
 
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -33,3 +34,10 @@ class User(db.Model):
 
     def get_id(self) -> str:
         return str(self.username)
+
+    def set_password(self, password_raw: str) -> None:
+        password_hash = argon2.hash(password_raw)
+        self.password_hash = password_hash
+
+    def check_password(self, password_raw: str) -> bool:
+        return argon2.verify(password_raw, str(self.password_hash))

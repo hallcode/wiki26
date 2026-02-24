@@ -404,4 +404,4 @@ data/*
 .ruff_cache/
 
 # App
-config.toml
+instance/config.toml
