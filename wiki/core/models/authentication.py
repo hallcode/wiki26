@@ -1,9 +1,13 @@
 from datetime import datetime
 from uuid import UUID, uuid4
+from typing import List, TYPE_CHECKING
 
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from wiki.core.database import db
+
+if TYPE_CHECKING:
+    from wiki.core.models.pages import Revision, Change
 
 
 class User(db.Model):
@@ -16,6 +20,9 @@ class User(db.Model):
     active: Mapped[bool] = mapped_column(default=False)
     source: Mapped[str] = mapped_column()
     created_at: Mapped[datetime] = mapped_column(default=datetime.now, nullable=False)
+
+    revisions: Mapped[List["Revision"]] = relationship(back_populates="user")
+    changes: Mapped[List["Change"]] = relationship(back_populates="user")
 
     is_authenticated = True
     is_anonymous = False

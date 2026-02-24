@@ -1,11 +1,15 @@
 from datetime import datetime
+from typing import List, TYPE_CHECKING
 from uuid import UUID, uuid4
 
 from sqlalchemy import ForeignKey, Column
-from sqlalchemy.orm import mapped_column, Mapped
+from sqlalchemy.orm import mapped_column, Mapped, relationship
 from sqlalchemy.types import Uuid, Integer, String
 
 from wiki.core.database import db
+
+if TYPE_CHECKING:
+    from wiki.core.models.authentication import User
 
 category_pivot_table = db.Table(
     "category_page",
@@ -51,8 +55,11 @@ class Page(db.Model):
     )
     current_version_id: Mapped[UUID] = mapped_column(Uuid, unique=True, nullable=False)
 
+    current_version: Mapped["Revision"] = relationship()
+    revisions: Mapped[List["Revision"]] = relationship(back_populates="pages")
 
-class Revisions(db.Model):
+
+class Revision(db.Model):
     __tablename__ = "revisions"
 
     id: Mapped[UUID] = mapped_column(primary_key=True, default=uuid4)
@@ -74,6 +81,9 @@ class Revisions(db.Model):
     imported: Mapped[bool] = mapped_column(default=False)
     size: Mapped[int] = mapped_column(default=0)
     change: Mapped[int] = mapped_column(default=0)
+
+    page: Mapped[Page] = relationship(back_populates="revisions")
+    user: Mapped["User"] = relationship(back_populates="revisions")
 
 
 class Metadata(db.Model):
@@ -99,3 +109,5 @@ class Change(db.Model):
     object_type: Mapped[str] = mapped_column()
     object_id: Mapped[int] = mapped_column()
     description: Mapped[str] = mapped_column()
+
+    user: Mapped["User"] = relationship(back_populates="changes")
