@@ -43,6 +43,10 @@ class Category(db.Model):
         ForeignKey("categories.id", onupdate="CASCADE", ondelete="SET NULL")
     )
 
+    pages: Mapped[List["Pages"]] = relationship(
+        secondary=category_pivot_table, back_populates="categories"
+    )
+
 
 class Page(db.Model):
     __tablename__ = "pages"
@@ -57,6 +61,10 @@ class Page(db.Model):
 
     current_version: Mapped["Revision"] = relationship()
     revisions: Mapped[List["Revision"]] = relationship(back_populates="pages")
+
+    categories: Mapped[List[Category]] = relationship(
+        secondary=category_pivot_table, back_populates="pages"
+    )
 
 
 class Revision(db.Model):
