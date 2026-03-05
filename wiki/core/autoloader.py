@@ -2,11 +2,11 @@ import importlib
 import os
 import pkgutil
 
+from flask.blueprints import Blueprint
 from jinja2 import ChoiceLoader, FileSystemLoader
 
-import wiki.modules
 import wiki.core.models
-from flask.blueprints import Blueprint
+import wiki.modules
 
 
 class Autoloader:

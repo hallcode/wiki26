@@ -1,14 +1,13 @@
 import os
-import tomllib
 
+import tomllib
 from flask import Flask
 
 from wiki.core.authentication import login_manager
-from wiki.core.database import db, alembic
 from wiki.core.autoloader import Autoloader
-
-from wiki.core.views.login import auth_bp
 from wiki.core.cli import cli
+from wiki.core.database import alembic, db
+from wiki.core.views.login import auth_bp
 
 
 def create_app():

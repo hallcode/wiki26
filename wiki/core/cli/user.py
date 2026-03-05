@@ -1,8 +1,9 @@
 import click
 
 from wiki import db
-from . import cli
 from wiki.core.models.authentication import User
+
+from . import cli
 
 
 @cli.cli.command("create-user")

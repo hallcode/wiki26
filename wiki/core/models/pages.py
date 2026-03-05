@@ -1,10 +1,10 @@
 from datetime import datetime
-from typing import List, TYPE_CHECKING
+from typing import TYPE_CHECKING, Any, List
 from uuid import UUID, uuid4
 
-from sqlalchemy import ForeignKey, Column
-from sqlalchemy.orm import mapped_column, Mapped, relationship
-from sqlalchemy.types import Uuid, Integer, String
+from sqlalchemy import Column, ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.types import Integer, String, Uuid
 
 from wiki.core.database import db
 
@@ -101,7 +101,31 @@ class Metadata(db.Model):
     parent_id: Mapped[int] = mapped_column()
     group: Mapped[str] = mapped_column(index=True, nullable=True)
     key: Mapped[str] = mapped_column(index=True, nullable=False)
-    value: Mapped[str] = mapped_column(nullable=False)
+    value: Mapped[bytes] = mapped_column(nullable=False)
+    cast_to: Mapped[str] = mapped_column(nullable=False, default="string")
+
+    def get_value(self):
+        if self.cast_to == "str":
+            return str(self.value, "utf-8")
+
+        if self.cast_to == "int":
+            return int.from_bytes(self.value)
+
+        return self.value
+
+    def set_value(self, value: Any):
+        if type(value) == int:
+            self.value = int.to_bytes(value)
+            self.cast_to = "int"
+            return
+
+        if type(value) == str:
+            self.value = value.encode("utf-8")
+            self.cast_to = "str"
+            return
+
+        self.value = value
+        self.cast_to = "bytes"
 
 
 class Change(db.Model):

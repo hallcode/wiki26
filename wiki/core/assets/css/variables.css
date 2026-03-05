@@ -1,0 +1,40 @@
+:root {
+    /* Brand Colours */
+    --clr-brand-a15: oklch(92% 0.01 200);
+    --clr-brand-a20: oklch(85% 0.03 190);
+    --clr-brand-a30: oklch(77% 0.05 190);
+    --clr-brand-a35: oklch(69% 0.06 190);
+    --clr-brand-a45: oklch(62% 0.08 190);
+    --clr-brand-a50: oklch(54% 0.09 190);
+    --clr-brand-a60: oklch(48% 0.08 190);
+    --clr-brand-a65: oklch(41% 0.06 190);
+    --clr-brand-a75: oklch(34% 0.05 190);
+    --clr-brand-a80: oklch(27% 0.03 200);
+    --clr-brand-a90: oklch(21% 0.02 190);
+
+    /* Blue */
+    --clr-blue-a15: oklch(92% 0.02 260);
+    --clr-blue-a20: oklch(84% 0.04 260);
+    --clr-blue-a30: oklch(77% 0.06 260);
+    --clr-blue-a35: oklch(69% 0.09 260);
+    --clr-blue-a45: oklch(61% 0.11 250);
+    --clr-blue-a50: oklch(53% 0.14 250);
+    --clr-blue-a60: oklch(47% 0.11 250);
+    --clr-blue-a65: oklch(40% 0.09 250);
+    --clr-blue-a75: oklch(34% 0.07 250);
+    --clr-blue-a80: oklch(27% 0.04 260);
+    --clr-blue-a90: oklch(20% 0.02 260);
+
+    /* Green */
+    --clr-green-a15: oklch(92% 0.02 160);
+    --clr-green-a20: oklch(84% 0.04 160);
+    --clr-green-a30: oklch(76% 0.06 160);
+    --clr-green-a35: oklch(68% 0.08 160);
+    --clr-green-a45: oklch(60% 0.09 160);
+    --clr-green-a50: oklch(51% 0.11 160);
+    --clr-green-a60: oklch(45% 0.09 160);
+    --clr-green-a65: oklch(39% 0.08 160);
+    --clr-green-a75: oklch(33% 0.06 160);
+    --clr-green-a80: oklch(26% 0.04 160);
+    --clr-green-a90: oklch(20% 0.02 160);
+}

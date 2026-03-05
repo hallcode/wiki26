@@ -1,6 +1,7 @@
 from flask_login import LoginManager
-from wiki.core.models.authentication import User
+
 from wiki.core.database import db
+from wiki.core.models.authentication import User
 
 login_manager = LoginManager()
 

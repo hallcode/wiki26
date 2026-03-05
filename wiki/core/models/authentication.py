@@ -1,14 +1,14 @@
 from datetime import datetime
+from typing import TYPE_CHECKING, List
 from uuid import UUID, uuid4
-from typing import List, TYPE_CHECKING
-from passlib.hash import argon2
 
+from passlib.hash import argon2
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from wiki.core.database import db
 
 if TYPE_CHECKING:
-    from wiki.core.models.pages import Revision, Change
+    from wiki.core.models.pages import Change, Revision
 
 
 class User(db.Model):
