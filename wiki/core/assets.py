@@ -32,10 +32,6 @@ class AssetManager:
         else:
             self._init_vite_manifest(app)
 
-    # -----------------------------
-    # Vite integration
-    # -----------------------------
-
     def _init_vite_dev(self):
 
         client = urljoin(self._vite_dev_server, "@vite/client")
@@ -73,10 +69,6 @@ class AssetManager:
             f"<script type='module' src='/static/dist/{entry['file']}'></script>"
         )
 
-    # -----------------------------
-    # Rendering
-    # -----------------------------
-
     def render_style_tags(self):
 
         styles = self._global_styles + getattr(g, "asset_styles", [])
@@ -91,12 +83,7 @@ class AssetManager:
 
         return "\n".join(scripts)
 
-    # -----------------------------
-    # Registration API
-    # -----------------------------
-
     def add_style(self, path=None, raw=None):
-
         if path:
             g.asset_styles.append(f"<link rel='stylesheet' href='{path}'>")
             return
@@ -105,7 +92,6 @@ class AssetManager:
             g.asset_styles.append(f"<style>{raw}</style>")
 
     def add_script(self, path=None, raw=None, deferred=False):
-
         if path:
             defer = " defer" if deferred else ""
             g.asset_script_links.append(f"<script src='{path}'{defer}></script>")

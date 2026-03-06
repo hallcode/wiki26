@@ -3,6 +3,7 @@ import os
 import tomllib
 from flask import Flask
 
+from wiki.core.assets import asset_manager
 from wiki.core.authentication import login_manager
 from wiki.core.autoloader import Autoloader
 from wiki.core.cli import cli
@@ -33,5 +34,8 @@ def create_app():
 
     # Authentication
     login_manager.init_app(app)
+
+    # Resources
+    asset_manager.init_app(app)
 
     return app
